@@ -3,31 +3,35 @@
 @section('title', 'Surat Masuk')
 
 @section('content')
-    <h1>halaman surat  masuk</h1>
-    
-    <table border="1" cellpadding="10">
+    <h1>Daftar Surat Masuk</h1>
+    <table border="1" cellpadding="8">
         <thead>
-            <th>no</th>
-            <th>nomor_surat</th>
-            <th>tanggal</th>
-            <th>pengirim</th>
-            <th>perihal</th>
-            <th>AKsi</th>
+            <tr> <!-- Tambahkan tag tr ini -->
+                <th>No</th>
+                <th>Nomor Surat</th>
+                <th>Tanggal</th>
+                <th>Pengirim</th>
+                <th>Perihal</th>
+                <th>Aksi</th>
+            </tr> <!-- Tutup tag tr -->
         </thead>
-
         <tbody>
-            @foreach($suratMasuk as $surat)
+            @forelse ($SuratMasuk as $surat) <!-- Gunakan forelse dan huruf S besar -->
             <tr>
-                <td>{{ $loop->iteration}}</td>
-                <td>{{ $surat['nomor_surat'] }}</td>
-                <td>{{ $surat['tanggal'] }}</td>
-                <td>{{ $surat['pengirim'] }}</td>
-                <td>{{ $surat['perihal'] }}</td>
+                <td>{{ $loop->iteration }}</td>
+                <td>{{ $surat->nomor_surat }}</td>
+                <td>{{ $surat->tanggal }}</td>
+                <td>{{ $surat->pengirim }}</td>
+                <td>{{ $surat->perihal }}</td>
                 <td>
-                    <a href="{{route('surat-masuk.show',$surat['id'])}}">Detail</a>
+                    <a href="{{ route('surat-masuk.show', $surat->id) }}">Detail</a>
                 </td>
             </tr>
-            @endforeach
+            @empty <!-- Tambahkan kondisi jika data kosong -->
+            <tr>
+                <td colspan="6">belum ada surat masuk.</td>
+            </tr>
+            @endforelse <!-- Gunakan endforelse -->
         </tbody>
     </table>
-@endsection
+@endsection <!-- Pastikan ada penutup section -->

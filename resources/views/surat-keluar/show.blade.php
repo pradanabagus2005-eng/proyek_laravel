@@ -1,36 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detail Surat Masuk</title>
-</head>
-<body>
-    <h1>Halaman Detail Surat Masuk</h1>
-    @if($suratShow)
-    <p>
-        <strong>Nomor Surat</strong>
-        {{ $suratShow->nomor_surat }}
-    </p>
+@extends('layouts.app')
 
-     <p>
-        <strong>tanggal</strong>
-       {{ $suratShow->tanggal }}
-    </p>
+@section('title', 'Detail Surat Keluar')
 
-     <p>
-        <strong>pengirim</strong>
-        {{ $suratShow->pengirim }}
-    </p>
-
-     <p>
-        <strong>perihal</strong>
-        {{ $suratShow->perihal }}
-    </p>
-    @else
-        <p>Surat tidak ditemukan</p>
-    @endif
-
-    <a href="{{route('surat-masuk.index')}}">kembali</a>
-</body>
-</html>
+@section('content')
+    <h1>Detail Surat Keluar</h1>
+    
+    <p><strong>Nomor Surat:</strong> {{ $surat->nomor_surat }}</p>
+    <p><strong>Tanggal:</strong> {{ $surat->tanggal }}</p>
+    <p><strong>Tujuan:</strong> {{ $surat->tujuan }}</p> <!-- Ubah Pengirim menjadi Tujuan -->
+    <p><strong>Perihal:</strong> {{ $surat->perihal }}</p>
+    <p><strong>Keterangan:</strong> {{ $surat->keterangan ?? '-' }}</p> <!-- Tambahkan Keterangan -->
+    
+    <br>
+    <a href="{{ route('surat-keluar.index') }}">Kembali</a> <!-- Pastikan route-nya kembali ke surat-keluar.index -->
+@endsection

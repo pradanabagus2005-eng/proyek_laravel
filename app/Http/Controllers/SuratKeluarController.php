@@ -3,32 +3,25 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\OutgoingLetter; // Baris ini sudah benar ada di sini
 
 class SuratKeluarController extends Controller
 {
     public function index()
     {
-        // Data surat untuk ditampilkan di tabel (file index.blade.php)
-        $dataSurat = [
-            ['id' => 1, 'nomor_surat' => '001/FT/X/2026', 'tanggal' => '13-10-2026', 'pengirim' => 'Fakultas Teknik', 'perihal' => 'Rapat'],
-            ['id' => 2, 'nomor_surat' => '002/FT/X/2026', 'tanggal' => '13-10-2026', 'pengirim' => 'Mulyono', 'perihal' => 'Keluhan'],
-            ['id' => 3, 'nomor_surat' => '003/FT/X/2026', 'tanggal' => '13-10-2026', 'pengirim' => 'faby', 'perihal' => 'Rapat'],
-        ];
+        // Mengambil semua data dari model OutgoingLetter
+        $SuratKeluar = OutgoingLetter::all();
 
-        return view('surat-keluar.index', compact('dataSurat')); 
+        // Mengirimkan variabel $SuratKeluar ke view
+        return view('surat-keluar.index', compact('SuratKeluar')); 
     }
 
     public function show($id)
     {
-        // Data statis sementara untuk halaman detail (file show.blade.php)
-        $suratShow = (object) [
-            'id' => $id,
-            'nomor_surat' => '001/FT/X/2026',
-            'tanggal' => '13-10-2026',
-            'pengirim' => 'Fakultas Teknik',
-            'perihal' => 'Rapat'
-        ];
+        // Mencari data surat berdasarkan ID
+        $surat = OutgoingLetter::findOrFail($id);
 
-        return view('surat-keluar.show', compact('suratShow'));
+        // Mengirimkan variabel $surat ke view
+        return view('surat-keluar.show', compact('surat'));
     }
 }
