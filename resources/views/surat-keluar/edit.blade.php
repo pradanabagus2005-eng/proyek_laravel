@@ -8,7 +8,7 @@
 </a>
 <h1 class="page-title mb-6">Edit Surat Keluar</h1>
 
-<form action="{{ route('surat-keluar.update', $surat->id) }}" method="POST" class="card max-w-3xl">
+<form action="{{ route('surat-keluar.update', $surat->id) }}" method="POST" enctype="multipart/form-data" class="card max-w-3xl">
     @csrf
     @method('PUT')
 
@@ -32,6 +32,23 @@
             <label for="perihal" class="label">Perihal</label>
             <input id="perihal" name="perihal" value="{{ old('perihal', $surat->perihal) }}" class="input">
             @error('perihal') <span class="field-error">{{ $message }}</span> @enderror
+        </div>
+        <div>
+            <label for="category_id" class="label">Kategori</label>
+            <select id="category_id" name="category_id" class="input">
+                <option value="">-- Tanpa kategori --</option>
+                @foreach ($categories as $kategori)
+                    <option value="{{ $kategori->id }}" @selected(old('category_id', $surat->category_id ?? '') == $kategori->id)>
+                        {{ $kategori->nama }}
+                    </option>
+                @endforeach
+            </select>
+            @error('category_id') <span class="field-error">{{ $message }}</span> @enderror
+        </div>
+        <div>
+            <label for="lampiran" class="label">Lampiran (PDF/JPG/PNG, maks. 2 MB)</label>
+            <input id="lampiran" type="file" name="lampiran" accept=".pdf,.jpg,.jpeg,.png" class="input file:mr-3 file:rounded file:border-0 file:bg-slate-100 file:px-3 file:py-1 file:text-sm file:font-medium file:text-slate-700 hover:file:bg-slate-200">
+            @error('lampiran') <span class="field-error">{{ $message }}</span> @enderror
         </div>
         <div class="sm:col-span-2">
             <label for="keterangan" class="label">Keterangan</label>

@@ -10,26 +10,40 @@
 
 <div class="card max-w-3xl">
     <dl class="divide-y divide-stone-100">
-            <div class="grid gap-1 px-6 py-4 sm:grid-cols-3 sm:gap-4">
-                <dt class="text-sm text-slate-500">Nomor</dt>
-                <dd class="text-slate-900 sm:col-span-2">{{ $surat->nomor_surat }}</dd>
-            </div>
-            <div class="grid gap-1 px-6 py-4 sm:grid-cols-3 sm:gap-4">
-                <dt class="text-sm text-slate-500">Tanggal</dt>
-                <dd class="text-slate-900 sm:col-span-2">{{ $surat->tanggal }}</dd>
-            </div>
-            <div class="grid gap-1 px-6 py-4 sm:grid-cols-3 sm:gap-4">
-                <dt class="text-sm text-slate-500">Tujuan</dt>
-                <dd class="text-slate-900 sm:col-span-2">{{ $surat->tujuan }}</dd>
-            </div>
-            <div class="grid gap-1 px-6 py-4 sm:grid-cols-3 sm:gap-4">
-                <dt class="text-sm text-slate-500">Perihal</dt>
-                <dd class="text-slate-900 sm:col-span-2">{{ $surat->perihal }}</dd>
-            </div>
-            <div class="grid gap-1 px-6 py-4 sm:grid-cols-3 sm:gap-4">
-                <dt class="text-sm text-slate-500">Keterangan</dt>
-                <dd class="text-slate-900 sm:col-span-2 whitespace-pre-line">{{ $surat->keterangan ?? '-' }}</dd>
-            </div>
+        <div class="grid gap-1 px-6 py-4 sm:grid-cols-3 sm:gap-4">
+            <dt class="text-sm text-slate-500">Nomor</dt>
+            <dd class="text-slate-900 sm:col-span-2">{{ $surat->nomor_surat }}</dd>
+        </div>
+        <div class="grid gap-1 px-6 py-4 sm:grid-cols-3 sm:gap-4">
+            <dt class="text-sm text-slate-500">Tanggal</dt>
+            <dd class="text-slate-900 sm:col-span-2">{{ $surat->tanggal }}</dd>
+        </div>
+        <div class="grid gap-1 px-6 py-4 sm:grid-cols-3 sm:gap-4">
+            <dt class="text-sm text-slate-500">Tujuan</dt>
+            <dd class="text-slate-900 sm:col-span-2">{{ $surat->tujuan }}</dd>
+        </div>
+        <div class="grid gap-1 px-6 py-4 sm:grid-cols-3 sm:gap-4">
+            <dt class="text-sm text-slate-500">Perihal</dt>
+            <dd class="text-slate-900 sm:col-span-2">{{ $surat->perihal }}</dd>
+        </div>
+        <div class="grid gap-1 px-6 py-4 sm:grid-cols-3 sm:gap-4">
+            <dt class="text-sm text-slate-500">Kategori</dt>
+            <dd class="text-slate-900 sm:col-span-2">{{ $surat->category?->nama ?? 'Tanpa kategori' }}</dd>
+        </div>
+        <div class="grid gap-1 px-6 py-4 sm:grid-cols-3 sm:gap-4">
+            <dt class="text-sm text-slate-500">Keterangan</dt>
+            <dd class="whitespace-pre-line text-slate-900 sm:col-span-2">{{ $surat->keterangan ?? '-' }}</dd>
+        </div>
+        @if ($surat->lampiran)
+        <div class="grid gap-1 px-6 py-4 sm:grid-cols-3 sm:gap-4">
+            <dt class="text-sm text-slate-500">Lampiran</dt>
+            <dd class="text-slate-900 sm:col-span-2">
+                <a href="{{ asset('storage/' . $surat->lampiran) }}" target="_blank" rel="noopener" class="font-medium text-blue-600 hover:underline">
+                    Lihat lampiran
+                </a>
+            </dd>
+        </div>
+        @endif
     </dl>
 </div>
 

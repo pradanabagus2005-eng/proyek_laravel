@@ -5,7 +5,7 @@
 <div class="mb-6 flex flex-wrap items-end justify-between gap-4">
     <div>
         <h1 class="page-title">Daftar Surat Keluar</h1>
-        <p class="mt-1 text-sm text-slate-500">Total {{ $suratKeluar->count() }} surat</p>
+        <p class="mt-1 text-sm text-slate-500">Total {{ $suratKeluar->total() }} surat</p>
     </div>
     @can('manage-letters')
     <a href="{{ route('surat-keluar.create') }}" class="btn btn-primary">
@@ -22,6 +22,26 @@
 </div>
 @endif
 
+<form method="GET" action="{{ route('surat-keluar.index') }}" class="card mb-4 flex flex-wrap items-center gap-3 p-4">
+    <div class="min-w-[220px] flex-1">
+        <input type="text" name="q" value="{{ request('q') }}" placeholder="Nomor, tujuan, atau perihal" class="input">
+    </div>
+    <div class="w-full sm:w-56">
+        <select name="category_id" class="input">
+            <option value="">Semua kategori</option>
+            @foreach ($categories as $kategori)
+                <option value="{{ $kategori->id }}" @selected(request('category_id') == $kategori->id)>
+                    {{ $kategori->nama }}
+                </option>
+            @endforeach
+        </select>
+    </div>
+    <div class="flex items-center gap-2">
+        <button type="submit" class="btn btn-primary">Cari / Filter</button>
+        <a href="{{ route('surat-keluar.index') }}" class="btn btn-secondary">Reset</a>
+    </div>
+</form>
+
 <div class="card overflow-x-auto">
     <table class="min-w-full divide-y divide-stone-200 text-sm">
         <thead class="bg-stone-50 text-left text-slate-500">
@@ -31,17 +51,19 @@
                 <th class="px-4 py-3 font-medium">Tanggal</th>
                 <th class="px-4 py-3 font-medium">Tujuan</th>
                 <th class="px-4 py-3 font-medium">Perihal</th>
+                <th class="px-4 py-3 font-medium">Kategori</th>
                 <th class="px-4 py-3 font-medium">Aksi</th>
             </tr>
         </thead>
         <tbody class="divide-y divide-stone-100">
             @forelse ($suratKeluar as $surat)
             <tr class="hover:bg-stone-50">
-                <td class="px-4 py-3 text-slate-500">{{ $loop->iteration }}</td>
+                <td class="px-4 py-3 text-slate-500">{{ $suratKeluar->firstItem() + $loop->index }}</td>
                 <td class="whitespace-nowrap px-4 py-3 font-medium text-slate-900">{{ $surat->nomor_surat }}</td>
                 <td class="whitespace-nowrap px-4 py-3">{{ $surat->tanggal }}</td>
                 <td class="px-4 py-3">{{ $surat->tujuan }}</td>
                 <td class="px-4 py-3">{{ $surat->perihal }}</td>
+                <td class="whitespace-nowrap px-4 py-3">{{ $surat->category?->nama ?? 'Tanpa kategori' }}</td>
                 <td class="px-4 py-3">
                     <div class="flex items-center gap-2">
                         <a href="{{ route('surat-keluar.show', $surat->id) }}" class="act act-view">
@@ -68,7 +90,7 @@
             </tr>
             @empty
             <tr>
-                <td colspan="6" class="px-4 py-14 text-center">
+                <td colspan="7" class="px-4 py-14 text-center">
                     <x-icon name="document" class="mx-auto size-10 text-slate-300" />
                     <p class="mt-3 text-sm text-slate-500">Belum ada surat keluar.</p>
                 </td>
@@ -76,5 +98,9 @@
             @endforelse
         </tbody>
     </table>
+</div>
+
+<div class="mt-4">
+    {{ $suratKeluar->links() }}
 </div>
 @endsection
