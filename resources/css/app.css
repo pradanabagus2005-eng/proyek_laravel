@@ -1,11 +1,61 @@
 @import 'tailwindcss';
 
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
 @source '../**/*.blade.php';
 @source '../**/*.js';
 
-@theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+@layer components {
+    /* Tombol */
+    .btn {
+        @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-md px-4 py-2 text-sm font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2;
+    }
+    .btn-primary {
+        @apply bg-teal-700 text-white hover:bg-teal-800 focus-visible:ring-teal-700;
+    }
+    .btn-secondary {
+        @apply border border-slate-300 bg-white text-slate-700 hover:bg-slate-50 focus-visible:ring-slate-400;
+    }
+
+    /* Tombol aksi di tabel */
+    .act {
+        @apply inline-flex cursor-pointer items-center gap-1.5 rounded-md border px-2.5 py-1.5 text-xs font-medium transition-colors;
+    }
+    .act-view {
+        @apply border-slate-200 bg-white text-slate-700 hover:bg-slate-100;
+    }
+    .act-edit {
+        @apply border-amber-200 bg-amber-50 text-amber-800 hover:bg-amber-100;
+    }
+    .act-del {
+        @apply border-red-200 bg-red-50 text-red-700 hover:bg-red-100;
+    }
+
+    /* Sidebar */
+    .nav-link {
+        @apply flex items-center gap-3 rounded-md border-l-2 border-transparent px-3 py-2.5 text-sm font-medium text-slate-300 transition-colors hover:bg-slate-800 hover:text-white;
+    }
+    .nav-link-active {
+        @apply border-teal-400 bg-slate-800 text-white;
+    }
+
+    /* Form */
+    .input {
+        @apply block w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 shadow-sm placeholder:text-slate-400 focus:border-teal-700 focus:outline-none focus:ring-1 focus:ring-teal-700;
+    }
+    .label {
+        @apply mb-1 block text-sm font-medium text-slate-700;
+    }
+    .field-error {
+        @apply mt-1 block text-sm text-red-600;
+    }
+
+    /* Umum */
+    .card {
+        @apply rounded-lg border border-stone-200 bg-white;
+    }
+    .page-title {
+        @apply text-2xl font-semibold tracking-tight text-slate-900;
+    }
+    .badge {
+        @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium;
+    }
 }
